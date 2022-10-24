@@ -1,13 +1,14 @@
-from email.mime import image
 import tkinter as tk
 import os
 import pytesseract
-import PIL.Image
+from PIL import ImageTk, Image
+# import PIL.Image
+# import PIL.ImageTk
 
 from tkinter import filedialog, image_names
 from tkinter import messagebox
 
-WINDOW_SIZE = "400x400"
+WINDOW_SIZE = "300x500"
 WINDOW_BACKGROUND = "#181818"
 BUTTON_BACKGROUND = "#ffc000"
 BUTTON_WIDTH = "10"
@@ -36,11 +37,7 @@ class ProjectGUI:
 
         start_button = tk.Button(self.root, bg=BUTTON_BACKGROUND,
                                  width=BUTTON_WIDTH, font=FONT, text="Save as text", command=self.save_as_text)
-        start_button.pack(padx=PAD_X, pady=PAD_Y+50)
-
-        close_button = tk.Button(self.root, bg=BUTTON_BACKGROUND, width=BUTTON_WIDTH,
-                                 font=FONT, text="Close", command=self.close_window)
-        close_button.pack(padx=PAD_X, pady=PAD_Y)
+        start_button.pack(padx=PAD_X, pady=PAD_Y)
 
         self.root.protocol("WM_DELETE_WINDOW", self.close_window)
         self.root.mainloop()
@@ -49,7 +46,7 @@ class ProjectGUI:
         if self.image_path == "":
             messagebox.showinfo(title="Error!", message="Provide an image!")
         else:
-            text = pytesseract.image_to_string(PIL.Image.open(self.image_path), config=TESS_CONFIG)
+            text = pytesseract.image_to_string(Image.open(self.image_path), config=TESS_CONFIG)
             text_file = filedialog.asksaveasfilename(
                 defaultextension=".*", initialdir="C:/", title="Save File", filetypes=(("Text Files", "*.txt"),))
 
@@ -68,13 +65,12 @@ class ProjectGUI:
                 ("All Files", "*.*"),
             )
         )
-        image_path = self.root.filename
-        temp_array = image_path.split("/")
+        temp_array = self.root.filename.split("/")
         image_name = temp_array[len(temp_array) - 1]
         if self.root.filename:
             messagebox.showinfo(
                 title="Info", message=f"File {image_name} has been loaded!")
-        self.image_path = image_path
+        self.image_path = self.root.filename
 
     def close_window(self):
         if messagebox.askyesno(title="Quit", message="Do you want to quit?"):
