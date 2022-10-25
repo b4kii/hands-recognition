@@ -1,18 +1,19 @@
 import tkinter as tk
 import os
 import pytesseract
-from PIL import ImageTk, Image
-from CountingTracking import tracker
 
-from tkinter import filedialog, image_names
+from PIL import ImageTk, Image
+from tkinter import filedialog
 from tkinter import messagebox
+from time import strftime
+from CountingTracking import tracker
 
 WINDOW_SIZE = "300x500"
 WINDOW_BACKGROUND = "#181818"
 BUTTON_BACKGROUND = "#ffc000"
 BUTTON_WIDTH = "12"
 PAD_X = 5
-PAD_Y = 10
+PAD_Y = 20
 FONT = ("Helvetica", 13)
 TESS_CONFIG = r"--psm 6 --oem 3 -l pol"
 
@@ -41,6 +42,10 @@ class ProjectGUI:
         hand_recognition = tk.Button(self.root, bg=BUTTON_BACKGROUND,
                                  width=BUTTON_WIDTH, font=FONT, text="Hand tracking", command=tracker)
         hand_recognition.pack(padx=PAD_X, pady=PAD_Y)
+
+        self.clock_label = tk.Label(self.root, bg=WINDOW_BACKGROUND, fg="white", font=FONT, pady=PAD_Y)
+        self.clock_label.pack(expand=True, anchor="s")
+        self.clock()
 
         self.root.protocol("WM_DELETE_WINDOW", self.close_window)
         self.root.mainloop()
@@ -78,6 +83,11 @@ class ProjectGUI:
     def close_window(self):
         if messagebox.askyesno(title="Quit", message="Do you want to quit?"):
             self.root.destroy()
+    
+    def clock(self):
+        string = strftime('%H:%M:%S %p')
+        self.clock_label.config(text = string)
+        self.clock_label.after(1000, self.clock)
 
 
 ProjectGUI()
