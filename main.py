@@ -26,22 +26,22 @@ class ProjectGUI:
         self.root.geometry(WINDOW_SIZE)
         self.root.configure(bg=WINDOW_BACKGROUND)
 
-        user_name_label = tk.Label(
+        self.user_name_label = tk.Label(
             self.root, bg=WINDOW_BACKGROUND, fg="white", text=f"Hello, {os.getlogin()}!", font=FONT)
-        user_name_label.pack(padx=PAD_X, pady=PAD_Y)
+        self.user_name_label.pack(padx=PAD_X, pady=PAD_Y)
 
-        browse_button = tk.Button(self.root, bg=BUTTON_BACKGROUND, width=BUTTON_WIDTH,
+        self.browse_button = tk.Button(self.root, bg=BUTTON_BACKGROUND, width=BUTTON_WIDTH,
                                   font=FONT, text="Load image",
                                   command=self.load_image)
-        browse_button.pack(padx=PAD_X, pady=PAD_Y)
+        self.browse_button.pack(padx=PAD_X, pady=PAD_Y)
 
-        save_text = tk.Button(self.root, bg=BUTTON_BACKGROUND,
+        self.save_text = tk.Button(self.root, bg=BUTTON_BACKGROUND,
                                  width=BUTTON_WIDTH, font=FONT, text="Save as text", command=self.save_as_text)
-        save_text.pack(padx=PAD_X, pady=PAD_Y)
+        self.save_text.pack(padx=PAD_X, pady=PAD_Y)
 
-        hand_recognition = tk.Button(self.root, bg=BUTTON_BACKGROUND,
+        self.hand_recognition = tk.Button(self.root, bg=BUTTON_BACKGROUND,
                                  width=BUTTON_WIDTH, font=FONT, text="Hand tracking", command=tracker)
-        hand_recognition.pack(padx=PAD_X, pady=PAD_Y)
+        self.hand_recognition.pack(padx=PAD_X, pady=PAD_Y)
 
         self.clock_label = tk.Label(self.root, bg=WINDOW_BACKGROUND, fg="white", font=FONT, pady=PAD_Y)
         self.clock_label.pack(expand=True, anchor="s")
