@@ -2,8 +2,7 @@ import tkinter as tk
 import os
 import pytesseract
 from PIL import ImageTk, Image
-# import PIL.Image
-# import PIL.ImageTk
+from CountingTracking import tracker
 
 from tkinter import filedialog, image_names
 from tkinter import messagebox
@@ -11,7 +10,7 @@ from tkinter import messagebox
 WINDOW_SIZE = "300x500"
 WINDOW_BACKGROUND = "#181818"
 BUTTON_BACKGROUND = "#ffc000"
-BUTTON_WIDTH = "10"
+BUTTON_WIDTH = "12"
 PAD_X = 5
 PAD_Y = 10
 FONT = ("Helvetica", 13)
@@ -35,9 +34,13 @@ class ProjectGUI:
                                   command=self.load_image)
         browse_button.pack(padx=PAD_X, pady=PAD_Y)
 
-        start_button = tk.Button(self.root, bg=BUTTON_BACKGROUND,
+        save_text = tk.Button(self.root, bg=BUTTON_BACKGROUND,
                                  width=BUTTON_WIDTH, font=FONT, text="Save as text", command=self.save_as_text)
-        start_button.pack(padx=PAD_X, pady=PAD_Y)
+        save_text.pack(padx=PAD_X, pady=PAD_Y)
+
+        hand_recognition = tk.Button(self.root, bg=BUTTON_BACKGROUND,
+                                 width=BUTTON_WIDTH, font=FONT, text="Hand tracking", command=tracker)
+        hand_recognition.pack(padx=PAD_X, pady=PAD_Y)
 
         self.root.protocol("WM_DELETE_WINDOW", self.close_window)
         self.root.mainloop()
@@ -53,7 +56,7 @@ class ProjectGUI:
             if text_file:
                 with open(text_file, "w", encoding="utf-8") as f:
                     f.write(text)
-                    messagebox.showinfo(title="Info", message="File have been saved successfully!")
+                    messagebox.showinfo(title="Info", message="File has been saved successfully!")
 
     def load_image(self):
         self.root.filename = filedialog.askopenfilename(
