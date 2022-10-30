@@ -76,6 +76,7 @@ class ProjectGUI:
         for box in boxes.splitlines():
             box = box.split(" ")
             image = cv2.rectangle(image, (int(box[1]), height - int(box[2])), (int(box[3]), height - int(box[4])), (0, 255, 0))
+
         cv2.imshow("image", image)
         cv2.waitKey(0)
 
