@@ -6,6 +6,7 @@ import cv2
 from PIL import ImageTk, Image
 from tkinter import filedialog
 from tkinter import messagebox
+from tkinter.font import Font
 from time import strftime
 
 from CountingTracking import tracker
@@ -16,7 +17,8 @@ BUTTON_BACKGROUND = "#ffc000"
 BUTTON_WIDTH = "12"
 PAD_X = 5
 PAD_Y = 20
-FONT = ("Helvetica", 13)
+FONT = ("Segoe Print", 13)
+CLOCK_FONT = ("Segoe Script", 12)
 TESS_CONFIG = r"--psm 6 --oem 3 -l pol"
 
 class ProjectGUI:
@@ -24,12 +26,20 @@ class ProjectGUI:
         self.image_path = ""
         self.root = tk.Tk()
 
+        BIG_FONT = Font(
+            family="Segoe Print",
+            size=32,
+            weight="bold",
+            slant="roman",
+            underline=0
+        )
+
         self.root.title("Project")
         self.root.geometry(WINDOW_SIZE)
         self.root.configure(bg=WINDOW_BACKGROUND)
 
         self.user_name_label = tk.Label(
-            self.root, bg=WINDOW_BACKGROUND, fg="white", text=f"Hello, {os.getlogin()}!", font=FONT)
+            self.root, bg=WINDOW_BACKGROUND, fg="white", text=f"Hello, {os.getlogin()}!", font=BIG_FONT)
         self.user_name_label.pack(padx=PAD_X, pady=PAD_Y)
 
         self.browse_button = tk.Button(self.root, bg=BUTTON_BACKGROUND, width=BUTTON_WIDTH,
@@ -46,7 +56,7 @@ class ProjectGUI:
         self.hand_recognition.pack(padx=PAD_X, pady=PAD_Y)
 
         self.clock_label = tk.Label(
-            self.root, bg=WINDOW_BACKGROUND, fg="white", font=FONT, pady=PAD_Y)
+            self.root, bg=WINDOW_BACKGROUND, fg="white", font=CLOCK_FONT, pady=PAD_Y)
         self.clock_label.pack(expand=True, anchor="s")
         self.clock()
 
